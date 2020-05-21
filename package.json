@@ -4,6 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "rimraf build",
+    "build:client": "cross-env NODE_ENV=production webpack --mode=production  --config webpack/webpack.prod.js --color --progress",
+    "build:server": "cross-env NODE_ENV=production babel -d ./build/server server",
+    "build": "npm run build:client && npm run build:server",
+    "start:server": "cross-env NODE_ENV=development nodemon --exec babel-node server/index.js",
+    "start:client": "cross-env NODE_ENV=development webpack-dev-server --mode=development --config webpack/webpack.dev.js",
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "start:production": "cross-env NODE_ENV=production node index.js",
+    "production": "npm run clean && npm run build:client && npm run build:server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +25,9 @@
   "bugs": {
     "url": "https://github.com/mohamedsamara/node-firebase/issues"
   },
-  "homepage": "https://github.com/mohamedsamara/node-firebase#readme"
+  "homepage": "https://github.com/mohamedsamara/node-firebase#readme",
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "cross-env": "^7.0.2"
+  }
 }
