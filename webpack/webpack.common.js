@@ -13,15 +13,15 @@ module.exports = {
   entry: [path.join(CURRENT_WORKING_DIR, 'client/app/index.js')],
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.(js|jsx)$/,
-      //   loader: 'eslint-loader',
-      //   exclude: /(node_modules)/,
-      //   options: {
-      //     emitWarning: process.env.NODE_ENV !== 'production'
-      //   }
-      // },
+      {
+        enforce: 'pre',
+        test: /\.(js|jsx)$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/,
+        options: {
+          emitWarning: process.env.NODE_ENV !== 'production'
+        }
+      },
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
