@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const common = require('./webpack.common');
 
 const CURRENT_WORKING_DIR = process.cwd();
+const PORT = process.env.PORT || 5000;
 
 module.exports = merge(common, {
   mode: 'development',
