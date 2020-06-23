@@ -1,7 +1,7 @@
 /**
  *
  * index.js
- * This is the entry file for the client applicaiton
+ * This is the entry file for the client application
  */
 
 import 'core-js';
