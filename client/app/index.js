@@ -1,9 +1,3 @@
-/**
- *
- * index.js
- * This is the entry file for the client application
- */
-
 import 'core-js';
 import 'regenerator-runtime/runtime';
 
