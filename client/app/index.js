@@ -10,6 +10,8 @@ import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import App from './app';
+
 const rootElement = document.getElementById('root');
 
-ReactDOM.render(<div>React Works!</div>, rootElement);
+ReactDOM.render(<App />, rootElement);

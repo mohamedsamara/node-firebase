@@ -3,17 +3,10 @@
 'use strict';
 
 const path = require('path');
-const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const dotenv = require('dotenv');
+const Dotenv = require('dotenv-webpack');
 
 const CURRENT_WORKING_DIR = process.cwd();
-const env = dotenv.config().parsed;
-
-const envKeys = Object.keys(env).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  return prev;
-}, {});
 
 module.exports = {
   entry: [path.join(CURRENT_WORKING_DIR, 'client/app/index.js')],
@@ -38,10 +31,5 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.html']
   },
-  plugins: [
-    new webpack.DefinePlugin(envKeys),
-    new CopyWebpackPlugin({
-      patterns: [{ from: 'client/public' }]
-    })
-  ]
+  plugins: [new Dotenv(), new CopyWebpackPlugin([{ from: 'client/public' }])]
 };
