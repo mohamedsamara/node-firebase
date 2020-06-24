@@ -1,20 +1,9 @@
 import React, { useEffect } from 'react';
 
-const App = () => {
-  useEffect(() => {
-    fetch('/api/test')
-      .then(res => res.json())
-      .then(
-        response => {
-          console.log('fetch result', response.json());
-        },
-        error => {
-          console.log('error', error);
-        }
-      );
-  }, []);
+import { Button } from 'shards-react';
 
-  return <div>Test APP Again</div>;
+const App = () => {
+  return <div>App</div>;
 };
 
 export default App;
