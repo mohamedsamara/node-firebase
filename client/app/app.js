@@ -1,9 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { Button } from 'shards-react';
+import { Container } from 'shards-react';
+
+import Header from './components/Header';
+import Homepage from './pages/Homepage';
 
 const App = () => {
-  return <div>App</div>;
+  return (
+    <>
+      <Header />
+      <Container className='wrapper'>
+        <Homepage />
+      </Container>
+    </>
+  );
 };
 
 export default App;
