@@ -1,3 +1,7 @@
 button:focus {
   outline: 1px dotted;
 }
+
+a {
+  color: #fff;
+}

@@ -5,10 +5,12 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
   NavLink,
+  NavItem,
   Collapse
 } from 'shards-react';
+
+import { Link } from '@reach/router';
 
 const Header = () => {
   const [collapseOpen, toggleNavbar] = useState(false);
@@ -19,14 +21,27 @@ const Header = () => {
 
   return (
     <Navbar type='dark' theme='primary' expand='md'>
-      <NavbarBrand href='#'>Node Firebase</NavbarBrand>
+      <Link to='/' className='nav-link'>
+        Node Firebase
+      </Link>
+
       <NavbarToggler onClick={handleToggleNavbar} />
       <Collapse open={collapseOpen} navbar>
         <Nav navbar>
           <NavItem>
-            <NavLink active href='#'>
+            <Link to='/' className='nav-link'>
               Home
-            </NavLink>
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to='/login' className='nav-link'>
+              Login
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to='/signup' className='nav-link'>
+              Signup
+            </Link>
           </NavItem>
         </Nav>
       </Collapse>
