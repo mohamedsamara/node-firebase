@@ -10,7 +10,7 @@ import Signup from './pages/Signup';
 
 const App = () => {
   return (
-    <>
+    <div className='application'>
       <Header />
       <Container className='wrapper'>
         <Router>
@@ -19,7 +19,7 @@ const App = () => {
           <Signup path='/signup' />
         </Router>
       </Container>
-    </>
+    </div>
   );
 };
 

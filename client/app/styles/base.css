@@ -1,0 +1,21 @@
+.input-feedback {
+  color: red;
+  margin-bottom: 0.75rem;
+}
+
+input.error {
+  border-color: red;
+}
+
+.form-control.error:hover {
+  border-color: red;
+}
+
+.form-control.error:focus {
+  border-color: red;
+  box-shadow: none;
+}
+
+.form-group.form-group-error {
+  margin-bottom: 0.3rem;
+}

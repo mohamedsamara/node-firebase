@@ -1,3 +1,19 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.application {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .wrapper {
+  flex: 1;
   padding-top: 25px;
 }
