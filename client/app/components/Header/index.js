@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 
-import {
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavLink,
-  NavItem,
-  Collapse
-} from 'shards-react';
-
+import { Navbar, NavbarToggler, Nav, NavItem, Collapse } from 'shards-react';
 import { Link } from '@reach/router';
+
+import NavLink from '../NavLink';
 
 const Header = () => {
   const [collapseOpen, toggleNavbar] = useState(false);
@@ -20,8 +13,8 @@ const Header = () => {
   };
 
   return (
-    <Navbar type='dark' theme='primary' expand='md'>
-      <Link to='/' className='nav-link'>
+    <Navbar type='dark' theme='primary' expand='md' className='header-nav'>
+      <Link to='/' className='navbar-brand'>
         Node Firebase
       </Link>
 
@@ -29,19 +22,19 @@ const Header = () => {
       <Collapse open={collapseOpen} navbar>
         <Nav navbar>
           <NavItem>
-            <Link to='/' className='nav-link'>
+            <NavLink to='/' className='nav-link'>
               Home
-            </Link>
+            </NavLink>
           </NavItem>
           <NavItem>
-            <Link to='/login' className='nav-link'>
+            <NavLink to='/login' className='nav-link'>
               Login
-            </Link>
+            </NavLink>
           </NavItem>
           <NavItem>
-            <Link to='/signup' className='nav-link'>
+            <NavLink to='/signup' className='nav-link'>
               Signup
-            </Link>
+            </NavLink>
           </NavItem>
         </Nav>
       </Collapse>
