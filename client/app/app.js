@@ -3,6 +3,8 @@ import React from 'react';
 import { Container } from 'shards-react';
 import { Router } from '@reach/router';
 
+import history from './history';
+
 import Header from './components/Header';
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
@@ -13,7 +15,7 @@ const App = () => {
     <div className='application'>
       <Header />
       <Container className='wrapper'>
-        <Router>
+        <Router history={history}>
           <Homepage path='/' />
           <Login path='/login' />
           <Signup path='/signup' />

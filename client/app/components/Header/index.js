@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Navbar, NavbarToggler, Nav, NavItem, Collapse } from 'shards-react';
-import { Link } from '@reach/router';
+import { Link, globalHistory } from '@reach/router';
 
 import NavLink from '../NavLink';
 
 const Header = () => {
   const [collapseOpen, toggleNavbar] = useState(false);
+
+  useEffect(() => {
+    globalHistory.listen(({ action }) => {
+      if (action === 'PUSH' || action === 'POP') {
+        toggleNavbar(false);
+      }
+    });
+  }, []);
 
   const handleToggleNavbar = () => {
     toggleNavbar(!collapseOpen);
