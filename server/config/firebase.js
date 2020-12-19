@@ -16,8 +16,8 @@ const serviceAccount = {
 };
 
 export const admin = firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount),
-  databaseURL: process.env.FIREBASE_DATABASE_URL
+  credential: firebase.credential.cert(serviceAccount)
+  //   databaseURL: process.env.FIREBASE_DATABASE_URL
 });
 
 export const db = firebase.firestore();

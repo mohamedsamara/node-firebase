@@ -4,4 +4,6 @@ import { createMemorySource, createHistory } from '@reach/router';
 const source = createMemorySource('/starting/url');
 const history = createHistory(source);
 
+export const { navigate } = history;
+
 export default history;

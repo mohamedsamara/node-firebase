@@ -4,12 +4,16 @@ import { Form, FormInput, FormGroup, Button } from 'shards-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import { useAuth } from '../../contexts/Auth';
 import Feedback from '../../components/Feedback';
 
 const Signup = () => {
+  const { signUp } = useAuth();
+
   const handleSignupSubmit = (values, { setSubmitting }) => {
     setTimeout(() => {
       setSubmitting(false);
+      signUp(values);
     }, 400);
   };
 
@@ -19,7 +23,12 @@ const Signup = () => {
         <div className='signup'>
           <h4>Sign Up</h4>
           <Formik
-            initialValues={{ email: '', password: '' }}
+            initialValues={{
+              email: '',
+              password: '',
+              firstName: '',
+              lastName: ''
+            }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email().required('Required'),
               password: Yup.string().required('Required')
@@ -61,7 +70,7 @@ const Signup = () => {
                 )}
                 <FormGroup
                   className={
-                    errors.passowrd && touched.passowrd && 'form-group-error'
+                    errors.password && touched.password && 'form-group-error'
                   }
                 >
                   <label htmlFor='#password'>Password</label>
@@ -81,6 +90,54 @@ const Signup = () => {
                 </FormGroup>
                 {errors.password && touched.password && (
                   <Feedback message={errors.password} />
+                )}
+
+                <FormGroup
+                  className={
+                    errors.firstName && touched.firstName && 'form-group-error'
+                  }
+                >
+                  <label htmlFor='#firstName'>First Name</label>
+                  <FormInput
+                    id='#firstName'
+                    type='text'
+                    name='firstName'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.firstName}
+                    className={
+                      errors.firstName && touched.firstName
+                        ? 'text-input error'
+                        : 'text-input'
+                    }
+                  />
+                </FormGroup>
+                {errors.firstName && touched.firstName && (
+                  <Feedback message={errors.firstName} />
+                )}
+
+                <FormGroup
+                  className={
+                    errors.lastName && touched.lastName && 'form-group-error'
+                  }
+                >
+                  <label htmlFor='#password'>Last Name</label>
+                  <FormInput
+                    id='#lastName'
+                    type='text'
+                    name='lastName'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.lastName}
+                    className={
+                      errors.lastName && touched.lastName
+                        ? 'text-input error'
+                        : 'text-input'
+                    }
+                  />
+                </FormGroup>
+                {errors.lastName && touched.lastName && (
+                  <Feedback message={errors.lastName} />
                 )}
                 <Button
                   pill

@@ -4,12 +4,15 @@ import { Form, FormInput, FormGroup, Button } from 'shards-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import { useAuth } from '../../contexts/Auth';
 import Feedback from '../../components/Feedback';
 
 const Login = () => {
+  const { signIn } = useAuth();
   const handleSignupSubmit = (values, { setSubmitting }) => {
     setTimeout(() => {
       setSubmitting(false);
+      signIn(values);
     }, 400);
   };
 
@@ -61,7 +64,7 @@ const Login = () => {
                 )}
                 <FormGroup
                   className={
-                    errors.passowrd && touched.passowrd && 'form-group-error'
+                    errors.password && touched.password && 'form-group-error'
                   }
                 >
                   <label htmlFor='#password'>Password</label>
