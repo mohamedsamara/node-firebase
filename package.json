@@ -20,6 +20,7 @@
     "pm2:logs": "pm2 logs",
     "pm2:delete": "pm2 delete node-firebase",
     "kill": "kill $(lsof -t -i:3000) | exit 0",
+    "users:delete": "babel-node server/scripts/users.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
