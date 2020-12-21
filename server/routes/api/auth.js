@@ -33,14 +33,20 @@ router.post('/session', async (req, res) => {
 router.post('/signout', async (req, res) => {
   try {
     const sessionCookie = req.cookies.session || '';
+    const split = sessionCookie.split('Bearer ');
+    const token = split[1];
+
     res.clearCookie('session');
-    const decodedClaims = await admin.auth().verifySessionCookie(sessionCookie);
+
+    const decodedClaims = await admin.auth().verifySessionCookie(token);
     admin.auth().revokeRefreshTokens(decodedClaims.sub);
 
     res.json({
       success: true
     });
   } catch (error) {
+    console.log({ error });
+
     res.json({
       success: false
     });

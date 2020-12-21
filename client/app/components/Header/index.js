@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
-import { Navbar, NavbarToggler, Nav, NavItem, Collapse } from 'shards-react';
-import { Link, globalHistory } from '@reach/router';
+import {
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavItem,
+  Collapse,
+  Button
+} from 'shards-react';
+import { Link, globalHistory, navigate } from '@reach/router';
 
+import { useAuth } from '../../contexts/Auth';
 import NavLink from '../NavLink';
 
 const Header = () => {
+  const { authToken, signOut } = useAuth();
   const [collapseOpen, toggleNavbar] = useState(false);
 
   useEffect(() => {
@@ -18,6 +27,12 @@ const Header = () => {
 
   const handleToggleNavbar = () => {
     toggleNavbar(!collapseOpen);
+  };
+
+  const handleSignOut = async () => {
+    signOut().then(() => {
+      navigate('/login');
+    });
   };
 
   return (
@@ -34,17 +49,41 @@ const Header = () => {
               Home
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink to='/login' className='nav-link'>
-              Login
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink to='/signup' className='nav-link'>
-              Signup
-            </NavLink>
-          </NavItem>
+          {authToken ? (
+            <NavItem>
+              <NavLink to='/dashboard' className='nav-link'>
+                Dashboard
+              </NavLink>
+            </NavItem>
+          ) : (
+            <>
+              <NavItem>
+                <NavLink to='/login' className='nav-link'>
+                  Login
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to='/signup' className='nav-link'>
+                  Signup
+                </NavLink>
+              </NavItem>
+            </>
+          )}
         </Nav>
+
+        {authToken && (
+          <Nav navbar className='ml-auto'>
+            <NavItem>
+              <Button
+                className='nav-link btn-none border-0'
+                onClick={handleSignOut}
+                theme='none'
+              >
+                Logout
+              </Button>
+            </NavItem>
+          </Nav>
+        )}
       </Collapse>
     </Navbar>
   );

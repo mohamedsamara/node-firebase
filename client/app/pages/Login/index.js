@@ -3,6 +3,7 @@ import React from 'react';
 import { Form, FormInput, FormGroup, Button } from 'shards-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { navigate } from '@reach/router';
 
 import { useAuth } from '../../contexts/Auth';
 import Feedback from '../../components/Feedback';
@@ -12,7 +13,10 @@ const Login = () => {
   const handleSignupSubmit = (values, { setSubmitting }) => {
     setTimeout(() => {
       setSubmitting(false);
-      signIn(values);
+
+      signIn(values).then(() => {
+        navigate('/dashboard');
+      });
     }, 400);
   };
 

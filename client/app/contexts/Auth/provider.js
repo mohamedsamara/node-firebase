@@ -2,48 +2,36 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
-import { navigate } from '../../history';
 import { auth } from '../../config/firebase';
 import { API_URL } from '../../constants';
 
 import AuthContext from './context';
 
 const AuthProvider = ({ children }) => {
+  const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
+
   const [error, setError] = useState({
     message: '',
     isError: false,
     links: false
   });
-  const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
-  const [userData, setUserData] = useState(null);
-  const [authUser, setAuthUser] = useState(localStorage.getItem('user_id'));
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      console.log({ user }, 'user-----');
-
-      //   if (user) {
-      //   } else {
-      //   }
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const setAuth = (token, user, email) => {
+  const setToken = token => {
     setAuthToken(token);
-    setAuthUser(user);
+    localStorage.setItem('token', token);
   };
 
-  const removeAuth = () => {
-    // setAuthToken(null);
-    // setAuthUser(null);
+  const removeToken = () => {
+    localStorage.removeItem('token');
+    setAuthToken(null);
   };
 
   const signIn = async values => {
     try {
       await auth.signInWithEmailAndPassword(values.email, values.password);
 
-      await verifyToken();
+      const idToken = await verifyToken();
+      setToken(idToken);
     } catch (error) {
       handleErrorMessages(error);
     }
@@ -63,7 +51,8 @@ const AuthProvider = ({ children }) => {
         lastName: values.lastName
       });
 
-      await verifyToken();
+      const idToken = await verifyToken();
+      setToken(idToken);
     } catch (error) {
       handleErrorMessages(error);
     }
@@ -73,7 +62,7 @@ const AuthProvider = ({ children }) => {
     try {
       await axios.post(`${API_URL}/auth/signout`);
       await auth.signOut();
-      removeAuth();
+      removeToken();
     } catch (error) {
       handleErrorMessages(error);
     }
@@ -94,9 +83,11 @@ const AuthProvider = ({ children }) => {
     try {
       const idToken = await getIdToken(true);
 
-      return await axios.post(`${API_URL}/auth/session`, {
+      await axios.post(`${API_URL}/auth/session`, {
         idToken
       });
+
+      return idToken;
     } catch (error) {
       return error;
     }
@@ -113,6 +104,7 @@ const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        authToken,
         signIn,
         signUp,
         signOut
