@@ -15,8 +15,10 @@ const Signup = () => {
     setTimeout(() => {
       setSubmitting(false);
 
-      signUp(values).then(() => {
-        navigate('/dashboard');
+      signUp(values).then(done => {
+        if (done) {
+          navigate('/dashboard');
+        }
       });
     }, 400);
   };

@@ -8,10 +8,17 @@ const config = {
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
   appId: process.env.APP_ID,
   measurementId: process.env.MEASURMENT_ID
-  //   databaseURL: process.env.DATABASE_URL,
 };
 
 firebase.initializeApp(config);
+
 const auth = firebase.auth();
 
-export { auth };
+const anlytics = firebase.analytics();
+const remoteConfig = firebase.remoteConfig();
+
+remoteConfig.settings = {
+  minimumFetchIntervalMillis: 3600000
+};
+
+export { auth, anlytics, remoteConfig };

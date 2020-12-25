@@ -14,8 +14,10 @@ const Login = () => {
     setTimeout(() => {
       setSubmitting(false);
 
-      signIn(values).then(() => {
-        navigate('/dashboard');
+      signIn(values).then(done => {
+        if (done) {
+          navigate('/dashboard');
+        }
       });
     }, 400);
   };

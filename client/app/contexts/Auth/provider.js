@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
-import { auth } from '../../config/firebase';
+import { auth, anlytics } from '../../config/firebase';
 import { API_URL } from '../../constants';
 
 import AuthContext from './context';
@@ -28,12 +28,21 @@ const AuthProvider = ({ children }) => {
 
   const signIn = async values => {
     try {
-      await auth.signInWithEmailAndPassword(values.email, values.password);
+      const user = await auth.signInWithEmailAndPassword(
+        values.email,
+        values.password
+      );
+
+      anlytics.setUserProperties({
+        newUser: user.additionalUserInfo.isNewUser
+      });
 
       const idToken = await verifyToken();
       setToken(idToken);
+      return true;
     } catch (error) {
       handleErrorMessages(error);
+      return false;
     }
   };
 
@@ -53,8 +62,10 @@ const AuthProvider = ({ children }) => {
 
       const idToken = await verifyToken();
       setToken(idToken);
+      return true;
     } catch (error) {
       handleErrorMessages(error);
+      return false;
     }
   };
 
