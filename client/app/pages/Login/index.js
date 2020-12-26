@@ -1,15 +1,16 @@
 import React from 'react';
 
-import { Form, FormInput, FormGroup, Button } from 'shards-react';
+import { Form, FormInput, FormGroup, Button, Alert } from 'shards-react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { navigate } from '@reach/router';
 
 import { useAuth } from '../../contexts/Auth';
 import Feedback from '../../components/Feedback';
+import Fade from '../../components/Fade';
 
 const Login = () => {
-  const { signIn } = useAuth();
+  const { signIn, error } = useAuth();
   const handleSignupSubmit = (values, { setSubmitting }) => {
     setTimeout(() => {
       setSubmitting(false);
@@ -26,6 +27,10 @@ const Login = () => {
     <div className='row'>
       <div className='col-12 col-md-6 offset-md-3'>
         <div className='signin'>
+          <Fade show={error.login?.isError}>
+            <Alert theme='danger'>{error.login?.message}</Alert>
+          </Fade>
+
           <h4>Login</h4>
           <Formik
             initialValues={{ email: '', password: '' }}

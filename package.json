@@ -99,6 +99,7 @@
     "formik": "^2.1.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-transition-group": "^4.4.1",
     "shards-react": "^1.0.3",
     "yup": "^0.29.1"
   }

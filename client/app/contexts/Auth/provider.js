@@ -11,9 +11,11 @@ const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
 
   const [error, setError] = useState({
-    message: '',
-    isError: false,
-    links: false
+    page: {
+      message: '',
+      isError: false,
+      links: false
+    }
   });
 
   const setToken = token => {
@@ -41,7 +43,7 @@ const AuthProvider = ({ children }) => {
       setToken(idToken);
       return true;
     } catch (error) {
-      handleErrorMessages(error);
+      handleErrorMessages(error, 'login');
       return false;
     }
   };
@@ -64,7 +66,7 @@ const AuthProvider = ({ children }) => {
       setToken(idToken);
       return true;
     } catch (error) {
-      handleErrorMessages(error);
+      handleErrorMessages(error, 'signup');
       return false;
     }
   };
@@ -79,15 +81,40 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleErrorMessages = error => {
-    console.log({ error });
+  const handleErrorMessages = (error, type = 'page') => {
+    let message = '';
 
-    // setError({
-    //   message:
-    //     'Your session timed out. Please refresh the browser and try again.',
-    //   isError: true,
-    //   link: true
-    // });
+    if (error.code) {
+      switch (error.code) {
+        case 'auth/user-not-found':
+          message = 'Email is not found';
+          break;
+
+        case 'auth/wrong-password':
+          message = 'Wrong Password';
+          break;
+
+        case 'auth/email-already-in-use':
+          message = 'Email is already in use';
+          break;
+
+        case 'auth/weak-password':
+          message = 'Password should be at least 6 characters';
+
+          break;
+        default:
+          break;
+      }
+    } else {
+      message = error;
+    }
+
+    setError({
+      [type]: {
+        message,
+        isError: true
+      }
+    });
   };
 
   const verifyToken = async () => {
@@ -118,7 +145,8 @@ const AuthProvider = ({ children }) => {
         authToken,
         signIn,
         signUp,
-        signOut
+        signOut,
+        error
       }}
     >
       {children}
