@@ -9,7 +9,7 @@ import AuthContext from './context';
 
 const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
-
+  const [user, setUser] = useState(null);
   const [error, setError] = useState({
     page: {
       message: '',
@@ -17,6 +17,12 @@ const AuthProvider = ({ children }) => {
       links: false
     }
   });
+
+  useEffect(() => {
+    if (authToken) {
+      fetchUser();
+    }
+  }, []);
 
   const setToken = token => {
     setAuthToken(token);
@@ -139,14 +145,27 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/user`);
+
+      setUser(response.data.user);
+    } catch (error) {
+      handleErrorMessages(error, 'login');
+      return false;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
+        fetchUser,
         authToken,
         signIn,
         signUp,
         signOut,
-        error
+        error,
+        user
       }}
     >
       {children}

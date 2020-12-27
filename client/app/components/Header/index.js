@@ -14,7 +14,7 @@ import { useAuth } from '../../contexts/Auth';
 import NavLink from '../NavLink';
 
 const Header = () => {
-  const { authToken, signOut } = useAuth();
+  const { authToken, signOut, user } = useAuth();
   const [collapseOpen, toggleNavbar] = useState(false);
 
   useEffect(() => {
@@ -72,7 +72,12 @@ const Header = () => {
         </Nav>
 
         {authToken && (
-          <Nav navbar className='ml-auto'>
+          <Nav navbar className='ml-auto align-items-md-center'>
+            {user && (
+              <NavItem className='d-none d-md-block'>
+                <span className='nav-link'>{user.firstName}</span>
+              </NavItem>
+            )}
             <NavItem>
               <Button
                 className='nav-link btn-none border-0'

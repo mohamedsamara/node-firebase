@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useAuth } from '../contexts/Auth';
 import Login from '../pages/Login';

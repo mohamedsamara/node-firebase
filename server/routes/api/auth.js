@@ -1,17 +1,8 @@
 import express from 'express';
 
 import { db, admin } from '../../config/firebase';
-import { isAuthenticated } from '../../middleware/authenticated';
 
 const router = express.Router();
-
-router.get('/', isAuthenticated, (req, res) => {
-  console.log(res.locals);
-
-  res.status(200).json({
-    success: true
-  });
-});
 
 router.post('/session', async (req, res) => {
   try {
@@ -72,8 +63,6 @@ router.post('/signup', async (req, res) => {
       success: true
     });
   } catch (error) {
-    console.log('----error------', error);
-
     res.json({
       success: false
     });
