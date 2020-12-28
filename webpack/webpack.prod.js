@@ -10,6 +10,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { GenerateSW } = require('workbox-webpack-plugin');
 
 const common = require('./webpack.common');
 
@@ -142,6 +143,27 @@ module.exports = merge(common, {
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[hash].css'
+    }),
+    new GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+      include: [/\.js$/],
+      runtimeCaching: [
+        {
+          urlPattern: new RegExp('.'),
+          handler: 'StaleWhileRevalidate'
+        },
+        {
+          urlPattern: new RegExp('api'),
+          handler: 'NetworkFirst'
+        },
+        {
+          urlPattern: new RegExp(
+            'https://fonts.googleapis.com|https://fonts.gstatic.com'
+          ),
+          handler: 'CacheFirst'
+        }
+      ]
     }),
     new WebpackPwaManifest({
       name: 'Node Firebase',
