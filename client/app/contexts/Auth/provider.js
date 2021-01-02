@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
     if (authToken) {
       fetchUser();
     }
-  }, []);
+  }, [authToken]);
 
   const setToken = token => {
     setAuthToken(token);
@@ -82,6 +82,7 @@ const AuthProvider = ({ children }) => {
       await axios.post(`${API_URL}/auth/signout`);
       await auth.signOut();
       removeToken();
+      setUser(null);
     } catch (error) {
       handleErrorMessages(error);
     }
