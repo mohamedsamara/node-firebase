@@ -150,12 +150,12 @@ module.exports = merge(common, {
       include: [/\.js$/],
       runtimeCaching: [
         {
-          urlPattern: new RegExp('.'),
-          handler: 'StaleWhileRevalidate'
-        },
-        {
           urlPattern: new RegExp('api'),
           handler: 'NetworkFirst'
+        },
+        {
+          urlPattern: new RegExp('.'),
+          handler: 'StaleWhileRevalidate'
         },
         {
           urlPattern: new RegExp(
@@ -170,7 +170,7 @@ module.exports = merge(common, {
       short_name: 'NodeFirebase',
       description: 'Node Firebase!',
       background_color: '#fff',
-      theme_color: '#4a68aa',
+      theme_color: '#007bff',
       inject: true,
       ios: true,
       icons: [
@@ -184,6 +184,12 @@ module.exports = merge(common, {
           sizes: [120, 152, 167, 180],
           destination: 'images',
           ios: true
+        },
+        {
+          src: path.resolve('client/public/images/pwa.png'),
+          destination: 'images',
+          sizes: '196x196',
+          purpose: 'maskable'
         }
       ]
     }),

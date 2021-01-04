@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { db, admin } from '../../config/firebase';
+import { db } from '../../config/firebase';
 import { isAuthenticated } from '../../middleware/authenticated';
 
 const router = express.Router();
