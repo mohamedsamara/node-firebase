@@ -25,13 +25,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// app.use((req, res) => {
-//   res.json({
-//     status: 400,
-//     message: 'Your request could not be processed. Please try again.'
-//   });
-// });
-
 app.listen(PORT, () => {
   console.log(
     `Listening on port ${PORT}. Visit http://localhost:${PORT}/ in your browser.`
