@@ -28,7 +28,18 @@
     "type": "git",
     "url": "git+https://github.com/mohamedsamara/node-firebase.git"
   },
-  "keywords": [],
+  "keywords": [
+    "node",
+    "express",
+    "react",
+    "shards react",
+    "firebase",
+    "google cloud",
+    "app engine",
+    "webpack",
+    "workbox",
+    "pm2"
+  ],
   "author": "Mohamed Samara (https://github.com/mohamedsamara)",
   "license": "MIT",
   "bugs": {

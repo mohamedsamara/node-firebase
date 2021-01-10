@@ -50,10 +50,10 @@ $ npm run start:production
 
 - [Firebase](https://firebase.google.com/)
 
-- [PM2](https://pm2.keymetrics.io/)
-
 - [Google Cloud](https://cloud.google.com/)
 
 - [Webpack](https://webpack.js.org/)
 
 - [Workbox](https://developers.google.com/web/tools/workbox)
+
+- [PM2](https://pm2.keymetrics.io/)
