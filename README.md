@@ -46,6 +46,8 @@ $ npm run start:production
 
 - [React](https://reactjs.org/)
 
+- [Reach Router](https://reach.tech/router/)
+
 - [Shards React](https://designrevision.com/docs/shards-react/getting-started)
 
 - [Firebase](https://firebase.google.com/)
